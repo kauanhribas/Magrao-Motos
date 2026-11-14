@@ -1,33 +1,82 @@
         <footer> 
+            <?php
+                $pagina = basename($_SERVER['PHP_SELF']);
+            ?>
+
             <section class="container-fluid fixed-bottom nav-section">
                 <div class="row h-100">
 
                     <div class="col-4">
                         <div>
-                            <a href="pg_services/services.php" class="btn">
-                                Serv.
-                            </a>
+                            <?php
+                                if ($pagina == "services.php") {
+                                    echo "
+                                        <a href='actions.php' class='btn'>
+                                            Movim.
+                                        </a>
+                                    ";
+                                }
+
+                                else {
+                                    echo "
+                                        <a href='#' class='btn'>
+                                            Serv.
+                                        </a>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div>
-                            <a href="#" class="btn">
-                                Mov.
-                            </a>
+                            <?php
+                                if ($pagina != "index.php") {
+                                    echo "
+                                        <a href='index.php' class='btn'>
+                                            Home
+                                        </a>
+                                    ";
+                                }
+
+                                else {
+                                    echo "
+                                        <a href='actions.php' class='btn'>
+                                            Movim.
+                                        </a>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div>
-                            <a href="#" class="btn">
-                                Relat.
-                            </a>
+                            <?php
+                                if ($pagina == "reports.php") {
+                                    echo "
+                                        <a href='actions.php' class='btn'>
+                                            Movim.
+                                        </a>
+                                    ";
+                                }
+
+                                else {
+                                    echo "
+                                        <a href='reports.php' class='btn'>
+                                            Relat.
+                                        </a>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
 
                 </div>
             </section>
         </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
     </body>
 </html>
