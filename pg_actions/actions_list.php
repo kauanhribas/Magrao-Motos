@@ -61,13 +61,13 @@
     <div class="container-fluid fixed-bottom" style="padding-bottom: calc(10vh + 16px)">
         <div class="d-flex" style="background-color: gray; border-radius: 7px; margin-left: 30px; margin-right: 30px; justify-content: center">
             
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalForm" style="color: white">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#actions_form" style="color: white">
                 Registrar movimentação
             </button>
 
         </div>
     </div>
 
-    <?php include "modalForm.php" ?>
+    <?php include "actions_form.php" ?>
 
 </section>
