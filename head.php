@@ -14,6 +14,8 @@
         <!-- Styles do CSS -->
         <link href="assets/css/styles.css" rel="stylesheet"/>
 
+        <?php define("BASE_URL", "/WEBbruxarias/Projeto Magrão Motos/projeto/Projeto-Magr-o-Motos---Projeto-Extens-o-I/"); ?>
+
     </head>
 
     <body>

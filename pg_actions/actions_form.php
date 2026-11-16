@@ -29,8 +29,8 @@
                         <div class="form-floating mt-3 mb-3">
                             <select class="form-select" id="action_type" name="action_type" required>
                                 <option value="" selected disabled>Selecione</option>
-                                <option value="entrada">Entrada</option>
-                                <option value="saida">Saída</option>
+                                <option value="in">Entrada</option>
+                                <option value="out">Saída</option>
                             </select>
                             <label for="action_type">Tipo de movimentação</label>
                         </div>

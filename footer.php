@@ -19,7 +19,7 @@
 
                                 else {
                                     echo "
-                                        <a href='#' class='btn'>
+                                        <a href='" . BASE_URL . "#' class='btn'>
                                             Serv.
                                         </a>
                                     ";
@@ -33,7 +33,7 @@
                             <?php
                                 if ($pagina != "index.php") {
                                     echo "
-                                        <a href='index.php' class='btn'>
+                                        <a href='" . BASE_URL . "index.php' class='btn'>
                                             Home
                                         </a>
                                     ";
@@ -63,7 +63,7 @@
 
                                 else {
                                     echo "
-                                        <a href='reports.php' class='btn'>
+                                        <a href='" . BASE_URL . "reports.php' class='btn'>
                                             Relat.
                                         </a>
                                     ";

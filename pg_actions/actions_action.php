@@ -1,5 +1,5 @@
 <!-- Inclui o header.php -->
-<?php include "head.php" ?>
+<?php include __DIR__ . "/../head.php" ?>
 
     <?php
     
@@ -24,8 +24,7 @@
             }
 
             //Validação do campo descrição
-            if(empty($_POST["action_description"])) {}
-            else {
+            if(!empty($_POST["action_description"])) {
                 $action_description = entry_filter($_POST["action_description"]);
             };
 
@@ -77,7 +76,7 @@
                                     VALUES ('$action_title', '$action_description', '$action_type', '$action_method', '$action_value', '$action_datetime')";
 
                 //Inclui o arquivo de conexão com o Banco de Dados
-                include "conectionDB.php";
+                include __DIR__ . "/../config/conectionDB.php";
 
                 //Se conseguir executar a QUERY para inserção, exibe alerta de sucesso e a tabela com os dados informados
                 //A funçao mysqli_query executa operações no Banco de Dados
@@ -95,8 +94,7 @@
                                     </tr>
                         ";
 
-                        if(empty($_POST["action_description"])) {}
-                        else {
+                        if(!empty($_POST["action_description"])) {
                             echo "
                                     <tr>
                                         <th>DESCRIÇÃO</th>
@@ -106,10 +104,6 @@
                         };
                         
                         echo "
-                                    <tr>
-                                        <th>DESCRIÇÃO</th>
-                                        <td>$action_description</td>
-                                    </tr>
                                     <tr>
                                         <th>TIPO</th>
                                         <td>$action_type</td>
@@ -133,7 +127,9 @@
                 }
                 else{
                     echo "<div class='alert alert-danger text-center'>
-                    Erro ao tentar inserir dados da<strong>MOVIMENTAÇÃO</strong> no banco de dados $database!</div>";
+                        Erro ao tentar inserir dados da <strong>MOVIMENTAÇÃO</strong> no banco de dados $database!
+                        <br><strong>Erro:</strong> " . mysqli_error($conn) . "
+                    </div>";
                 }
             }
 
@@ -155,4 +151,4 @@
     ?>
 
 <!-- Inclui o footer.php -->
-<?php include "footer.php" ?>
+<?php include __DIR__ . "/../footer.php" ?>
