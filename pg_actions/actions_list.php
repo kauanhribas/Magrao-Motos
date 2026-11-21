@@ -1,60 +1,56 @@
-<section class="section1">
+<?php
+require_once root_path . "config/conectionDB.php";
+
+$select_actions = "SELECT * FROM actions ORDER BY action_datetime DESC";
+$result_actions = mysqli_query($conn, $select_actions);
+?>
+
+<div style="padding: 8px">
+<section class="section1" style="border-radius: 10px">
     <div class="s1-titulo">
         <h1>MOVIMENTAÇÕES</h1>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 8px">
         <div class="d-flex flex-column quadros">
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Entrada 1</h1>
-            </div>
+            <?php
+            // Percorre todas as movimentações encontradas
+            while ($action = mysqli_fetch_assoc($result_actions)) {
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Saida 1</h1>
-            </div>
+                // Define o nome do tipo de movimentação
+                $action_type_name = ($action["action_type"] == "in") ? "Entrada" : "Saída";
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Entrada 2</h1>
-            </div>
+                // Formata a data
+                $action_date = date(
+                    'd/m/Y H:i',
+                    strtotime($action["action_datetime"])
+                );
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Saida 2</h1>
-            </div>
+                // Define o identificador do modal
+                $modal_id = "action" . $action["action_id"];
+            ?>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Entrada 3</h1>
-            </div>
+                <div class="row"
+                    data-bs-toggle="modal"
+                    data-bs-target="#<?php echo $modal_id; ?>">
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Saida 3</h1>
-            </div>
+                    <h1>
+                        <?php echo htmlspecialchars($action["action_title"]); ?>
+                    </h1>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Entrada 4</h1>
-            </div>
-
-            <div class="row" data-bs-toggle="modal" data-bs-target="#action1">
-                <h1>Saida 4</h1>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de movimentações 1 -->
-    <div class="modal fade" id="action1" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Movimentação X</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <?php if (!empty($action["action_description"])) { ?>
+                        <p> <?php echo htmlspecialchars($action["action_description"]); ?> </p>
+                    <?php } ?>
                 </div>
 
-                <div class="modal-body">
-                    Informações da movimentação.
-                </div>
+                <!-- Modal da edição -->
+                <?php require root_path . "pg_actions/actions_edit.php"?>
 
-            </div>
+            <?php
+            }
+            ?>
+
         </div>
     </div>
 
@@ -68,6 +64,11 @@
         </div>
     </div>
 
-    <?php include "actions_form.php" ?>
-
+    <?php
+        $form_mode = 'create';
+        $form_action = [];
+        $form_id = 'actions_form';
+        include root_path . 'pg_actions/actions_form.php';
+    ?>
 </section>
+</div>

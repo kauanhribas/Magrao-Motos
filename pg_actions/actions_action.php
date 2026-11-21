@@ -1,154 +1,149 @@
-<!-- Inclui o header.php -->
-<?php include __DIR__ . "/../head.php" ?>
+<?php
+    ob_start();
+    require_once dirname(__DIR__) . '/head.php';
+?>
 
-    <?php
-    
-        //Verifica o método de requisição do servidor
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-            //Define o bloco de variáveis para armazenar as informações recebidas do formulário
-            $action_title = $action_description = $action_type = $action_method = $action_value = $action_datetime = "";
+<?php
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        echo "<div class='container mt-3'><div class='alert alert-warning'>Requisição inválida.</div></div>";
+        require_once root_path . 'footer.php';
+        exit;
+    }
 
-            //Variável booleana para controle de erros de preenchimento
-            $filling_error = false;
+    $action_mode = $_POST['action_mode'] ?? 'create';
+    $is_update = $action_mode === 'update';
+    $errors = [];
 
-            //Validação do campo titulo
-            //Utiliza a função empty() para verificar se o campo está vazio
-            if(empty($_POST["action_title"])){
-                echo "<div class='alert alert-warning text-center'>O campo <strong>TÍTULO</strong> é obrigatório!</div>";
-                $filling_error = true;
+    $action_title = trim($_POST['action_title'] ?? '');
+    $action_description = trim($_POST['action_description'] ?? '');
+    $action_type = $_POST['action_type'] ?? '';
+    $action_method = $_POST['action_method'] ?? '';
+    $action_value = $_POST['action_value'] ?? '';
+    $action_id = filter_input(INPUT_POST, 'action_id', FILTER_VALIDATE_INT);
+
+    // INÍCIO: tratamento da exclusão
+    if ($action_mode === 'delete') {
+
+        // Confere se a movimentação recebeu um ID válido.
+        if (!$action_id || $action_id <= 0) {
+            echo "<div class='container mt-3'>
+                    <div class='alert alert-danger'>
+                        Movimentação inválida para exclusão.
+                    </div>
+                </div>";
+
+            require_once root_path . 'footer.php';
+            exit;
+        }
+
+        // Abre a conexão com o banco.
+        require_once root_path . 'config/conectionDB.php';
+
+        // Prepara a exclusão somente da movimentação cujo ID foi enviado.
+        $statement = mysqli_prepare(
+            $conn,
+            'DELETE FROM actions WHERE action_id = ?'
+        );
+
+        // O \"i\" significa que action_id é um número inteiro.
+        mysqli_stmt_bind_param($statement, 'i', $action_id);
+
+        // Se excluiu corretamente, volta à lista sem exibir uma tela de sucesso.
+        if ($statement && mysqli_stmt_execute($statement)) {
+            header('Location: ' . root_url . 'actions.php');
+            exit;
+        }
+
+        // Caso o banco não consiga excluir, exibe o erro e encerra o processamento.
+        echo "<div class='container mt-3'>
+                <div class='alert alert-danger'>
+                    Erro ao excluir a movimentação.
+                </div>
+            </div>";
+
+        require_once root_path . 'footer.php';
+        exit;
+    }
+    // FIM: tratamento da exclusão
+
+    if ($action_title === '') {
+        $errors[] = 'O campo TÍTULO é obrigatório.';
+    }
+
+    if (!in_array($action_type, ['in', 'out'], true)) {
+        $errors[] = 'Selecione um TIPO DE MOVIMENTAÇÃO válido.';
+    }
+
+    if (!in_array($action_method, ['dinheiro', 'pix', 'cartao', 'outra'], true)) {
+        $errors[] = 'Selecione um MÉTODO DE PAGAMENTO válido.';
+    }
+
+    if (!is_numeric($action_value) || (float) $action_value <= 0) {
+        $errors[] = 'Informe um VALOR maior que zero.';
+    }
+
+    if ($is_update && (!$action_id || $action_id <= 0)) {
+        $errors[] = 'Movimentação inválida para edição.';
+    }
+
+    if ($errors) {
+        echo "<div class='container mt-3'><div class='alert alert-warning'>";
+        foreach ($errors as $error) {
+            echo '<div>' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '</div>';
+        }
+        echo "</div></div>";
+    } else {
+        require_once root_path . 'config/conectionDB.php';
+
+        if ($is_update) {
+            $statement = mysqli_prepare(
+                $conn,
+                'UPDATE actions
+                 SET action_title = ?, action_description = ?, action_type = ?, action_method = ?, action_value = ?
+                 WHERE action_id = ?'
+            );
+            if ($statement) {
+                mysqli_stmt_bind_param(
+                    $statement,
+                    'ssssdi',
+                    $action_title,
+                    $action_description,
+                    $action_type,
+                    $action_method,
+                    $action_value,
+                    $action_id
+                );
             }
-
-            else{
-                //Armazena o valor na variável
-                $action_title = entry_filter($_POST["action_title"]);
-            }
-
-            //Validação do campo descrição
-            if(!empty($_POST["action_description"])) {
-                $action_description = entry_filter($_POST["action_description"]);
-            };
-
-            //Validação do campo tipo
-            //Utiliza a função empty() para verificar se o campo está vazio
-            if(empty($_POST["action_type"])){
-                echo "<div class='alert alert-warning text-center'>O campo <strong>TIPO DE MOVIMENTAÇÃO</strong> é obrigatório!</div>";
-                $filling_error = true;
-            }
-
-            else{
-                //Armazena o valor na variável
-                $action_type = $_POST["action_type"];
-            }
-
-            //Validação do campo metodo
-            //Utiliza a função empty() para verificar se o campo está vazio
-            if(empty($_POST["action_method"])){
-                echo "<div class='alert alert-warning text-center'>O campo <strong>MÉTODO DE PAGAMENTO</strong> é obrigatório!</div>";
-                $filling_error = true;
-            }
-
-            else{
-                //Armazena o valor na variável
-                $action_method = $_POST["action_method"];
-            }
-
-            //Validação do campo valor
-            //Utiliza a função empty() para verificar se o campo está vazio
-            if(empty($_POST["action_value"])){
-                echo "<div class='alert alert-warning text-center'>O campo <strong>VALOR</strong> é obrigatório!</div>";
-                $filling_error = true;
-            }
-
-            else{
-                //Armazena o valor na variável
-                $action_value = entry_filter($_POST["action_value"]);
-            }
-
+        } else {
             date_default_timezone_set('America/Sao_Paulo');
-
             $action_datetime = date('Y-m-d H:i:s');
-
-            //Se NÃO houver erro de preenchimento e NÃO houver erro no upload da foto
-            if(!$filling_error){
-
-                //Criar uma variável para armazenar a QUERY que realiza a inserção de dados da Movimentação na tabela actions
-                $insert_action = "INSERT INTO actions (action_title, action_description, action_type, action_method, action_value, action_datetime)
-                                    VALUES ('$action_title', '$action_description', '$action_type', '$action_method', '$action_value', '$action_datetime')";
-
-                //Inclui o arquivo de conexão com o Banco de Dados
-                include __DIR__ . "/../config/conectionDB.php";
-
-                //Se conseguir executar a QUERY para inserção, exibe alerta de sucesso e a tabela com os dados informados
-                //A funçao mysqli_query executa operações no Banco de Dados
-                if(mysqli_query($conn, $insert_action)){
-
-                    echo "<div class='container'>";
-                        echo "<div class='alert alert-success text-center'><strong>MOVIMENTAÇÃO</strong> registrada com sucesso!</div>";
-                        
-                        echo "
-                            <div class='container mt-3'>
-                                <table class='table'>
-                                    <tr>
-                                        <th>TÍTULO</th>
-                                        <td>$action_title</td>
-                                    </tr>
-                        ";
-
-                        if(!empty($_POST["action_description"])) {
-                            echo "
-                                    <tr>
-                                        <th>DESCRIÇÃO</th>
-                                        <td>$action_description</td>
-                                    </tr>
-                            ";
-                        };
-                        
-                        echo "
-                                    <tr>
-                                        <th>TIPO</th>
-                                        <td>$action_type</td>
-                                    </tr>
-                                    <tr>
-                                        <th>METODO</th>
-                                        <td>$action_method</td>
-                                    </tr>
-                                    <tr>
-                                        <th>VALOR</th>
-                                        <td>$action_value</td>
-                                    </tr>
-                                    <tr>
-                                        <th>DATA E HORÁRIO</th>
-                                        <td>" . date('d/m/Y H:i:s', strtotime($action_datetime)) . "</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        ";
-                    echo "</div>";
-                }
-                else{
-                    echo "<div class='alert alert-danger text-center'>
-                        Erro ao tentar inserir dados da <strong>MOVIMENTAÇÃO</strong> no banco de dados $database!
-                        <br><strong>Erro:</strong> " . mysqli_error($conn) . "
-                    </div>";
-                }
+            $statement = mysqli_prepare(
+                $conn,
+                'INSERT INTO actions (action_title, action_description, action_type, action_method, action_value, action_datetime)
+                 VALUES (?, ?, ?, ?, ?, ?)'
+            );
+            if ($statement) {
+                mysqli_stmt_bind_param(
+                    $statement,
+                    'ssssds',
+                    $action_title,
+                    $action_description,
+                    $action_type,
+                    $action_method,
+                    $action_value,
+                    $action_datetime
+                );
             }
-
-        }
-        else{
-            //Usa a função "header()" para redirecionar o usuário para o actions.php
-            header("location:actions.php");
         }
 
-        //Função para filtrar entrada de dados
-        function entry_filter($data){
-            $data = stripslashes($data); //Remove barras invertidas
-            $data = htmlspecialchars($data); //Converte caracteres especiais em entidades HTML
-
-            //Retorna o dado após filtrado
-            return($data);
+        if ($statement && mysqli_stmt_execute($statement)) {
+            header('Location: ' . root_url . 'actions.php');
+            exit;
         }
-    
-    ?>
+        else {
+            echo "<div class='container mt-3'><div class='alert alert-danger text-center'>Erro ao salvar a movimentação.</div></div>";
+        }
+    }
+?>
 
-<!-- Inclui o footer.php -->
-<?php include __DIR__ . "/../footer.php" ?>
+<?php require_once root_path . 'footer.php'; ?>

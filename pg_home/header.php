@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <section class="navbar-dashboard">
     <div class="navbar-content">
 

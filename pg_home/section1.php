@@ -1,3 +1,4 @@
+<div style="padding-left: 8px; padding-right: 8px">
 <section class="section1">
     <div class="s1-titulo">
         <h1>SERVIÇOS</h1>
@@ -40,6 +41,7 @@
         </div>
     </div>
 </section>
+</div>
 
 <!-- Modal do Serviço 1 -->
 <div class="modal fade" id="servico1" tabindex="-1">
