@@ -14,7 +14,20 @@
         <!-- Styles do CSS -->
         <link href="assets/css/styles.css" rel="stylesheet"/>
 
-        <?php define("BASE_URL", "/WEBbruxarias/Projeto Magrão Motos/projeto/Projeto-Magr-o-Motos---Projeto-Extens-o-I/"); ?>
+        <?php
+            define("root_path", __DIR__ . "/");
+        
+            $documentRoot = realpath($_SERVER['DOCUMENT_ROOT']);
+            $projectPath = realpath(root_path);
+
+            $relativePath = str_replace(
+                str_replace('\\', '/', $documentRoot),
+                '',
+                str_replace('\\', '/', $projectPath)
+            );
+
+            define('root_url', '/' . trim($relativePath, '/') . '/');
+        ?>
 
     </head>
 

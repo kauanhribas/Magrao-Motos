@@ -11,7 +11,7 @@
                             <?php
                                 if ($pagina == "services.php") {
                                     echo "
-                                        <a href='actions.php' class='btn'>
+                                        <a href='" . root_url . "actions.php' class='btn'>
                                             Movim.
                                         </a>
                                     ";
@@ -19,7 +19,7 @@
 
                                 else {
                                     echo "
-                                        <a href='" . BASE_URL . "#' class='btn'>
+                                        <a href='" . root_url . "#' class='btn'>
                                             Serv.
                                         </a>
                                     ";
@@ -33,7 +33,7 @@
                             <?php
                                 if ($pagina != "index.php") {
                                     echo "
-                                        <a href='" . BASE_URL . "index.php' class='btn'>
+                                        <a href='" . root_url . "index.php' class='btn'>
                                             Home
                                         </a>
                                     ";
@@ -41,7 +41,7 @@
 
                                 else {
                                     echo "
-                                        <a href='actions.php' class='btn'>
+                                        <a href='" . root_url . "actions.php' class='btn'>
                                             Movim.
                                         </a>
                                     ";
@@ -55,7 +55,7 @@
                             <?php
                                 if ($pagina == "reports.php") {
                                     echo "
-                                        <a href='actions.php' class='btn'>
+                                        <a href='" . root_url . "actions.php' class='btn'>
                                             Movim.
                                         </a>
                                     ";
@@ -63,7 +63,7 @@
 
                                 else {
                                     echo "
-                                        <a href='" . BASE_URL . "reports.php' class='btn'>
+                                        <a href='" . root_url . "reports.php' class='btn'>
                                             Relat.
                                         </a>
                                     ";

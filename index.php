@@ -1,7 +1,9 @@
-<?php include "head.php"?>
+<?php 
+    require_once __DIR__ . "/head.php";
 
-<?php include "pg_home/header.php"?>
+    require_once root_path . "pg_home/header.php";
 
-<?php include "pg_home/section1.php"?>
+    require_once root_path . "pg_home/section1.php";
 
-<?php include "footer.php"?>
+    require_once root_path . "footer.php"
+?>
