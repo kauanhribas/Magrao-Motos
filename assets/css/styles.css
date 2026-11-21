@@ -5,6 +5,7 @@
     background-color: lightgray;
     padding-top: 25px;
     padding-bottom: calc(10vh + 32px + 32px);
+    min-height: 100vh;
 }
 
 .s1-titulo {
@@ -32,7 +33,11 @@
 }
 
 .row > h1 {
-    margin-bottom: 75px;
+    margin: 4px;
+}
+
+.row > p {
+    margin: 4px;
 }
 
 /* NAVBAR */
