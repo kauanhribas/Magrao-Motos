@@ -19,7 +19,7 @@
 
                                 else {
                                     echo "
-                                        <a href='" . root_url . "#' class='btn'>
+                                        <a href='" . root_url . "services.php' class='btn'>
                                             SERVIÇOS
                                         </a>
                                     ";
