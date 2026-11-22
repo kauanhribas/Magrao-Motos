@@ -125,3 +125,19 @@
     font-weight: bold;
     font-size: clamp(8px, 4.2vw, 48px);
 }
+
+.linha2 {
+    display: block;
+    flex: 0 0 1px; /* não encolhe; largura de 3px */
+    align-self: stretch;
+    background-color: rgb(198, 43, 43);
+    padding: 0;
+}
+
+.conteudo-acao {
+    flex: 1;
+}
+
+.conteudo-acao p {
+    margin-bottom: 0;
+}

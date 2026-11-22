@@ -35,17 +35,21 @@ $result_actions = mysqli_query($conn, $select_actions);
                     $modal_id = "action" . $action["action_id"];
                 ?>
 
-                    <div class="row"
+                    <div class="row" style="display: flex; align-items: stretch;"
                         data-bs-toggle="modal"
                         data-bs-target="#<?php echo $modal_id; ?>">
 
-                        <h1>
-                            <?php echo htmlspecialchars($action["action_title"]); ?>
-                        </h1>
+                        <span class="linha2"></span>
 
-                        <?php if (!empty($action["action_description"])) { ?>
-                            <p> <?php echo htmlspecialchars($action["action_description"]); ?> </p>
-                        <?php } ?>
+                        <div class="conteudo-acao">
+                            <h1>
+                                <?php echo htmlspecialchars($action["action_title"]); ?>
+                            </h1>
+
+                            <?php if (!empty($action["action_description"])) { ?>
+                                <p> <?php echo htmlspecialchars($action["action_description"]); ?> </p>
+                            <?php } ?>
+                        </div>
                     </div>
 
                     <!-- Modal da edição -->
