@@ -1,3 +1,31 @@
+
+<?php
+    require_once root_path . "config/conectionDB.php";
+
+    $select_saldo = "SELECT
+        SUM(
+            CASE
+                WHEN action_type = 'in' THEN action_value
+                WHEN action_type = 'out' THEN -action_value
+                ELSE 0
+            END
+        ) AS saldo
+        FROM actions";
+
+    $result_saldo = mysqli_query($conn, $select_saldo);
+
+    $dados_saldo = mysqli_fetch_assoc($result_saldo);
+
+    $saldo_disponivel = $dados_saldo['saldo'] ?? 0;
+
+    $saldo_formatado = number_format(
+        (float) $saldo_disponivel,
+        2,
+        ',',
+        '.'
+    );
+?>
+
 <section class="navbar-dashboard">
     <div class="navbar-content">
 
@@ -6,12 +34,14 @@
             <img src="img/logo.jpg" alt="Logo">
         </div>
 
-        <!-- SALDO -->
+        <!-- SALDO--> 
         <div class="navbar-box saldo-box">
             <span class="saldo-label">Saldo disponível</span>
-            <strong class="saldo-valor">R$ 10.000,00</strong>
-        </div>
 
+            <strong class="saldo-valor">
+                R$ <?php echo $saldo_formatado; ?>
+            </strong>
+        </div>
     </div>
 </section>
 

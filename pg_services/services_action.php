@@ -1,3 +1,4 @@
+
 <?php
 ob_start();
 require_once dirname(__DIR__) . '/head.php';
@@ -20,6 +21,8 @@ $errors = [];
 
 $service_title = trim($_POST['service_title'] ?? '');
 $service_description = trim($_POST['service_description'] ?? '');
+$service_status = $_POST['service_status'] ?? 'Pendente';
+
 $service_id = filter_input(INPUT_POST, 'service_id', FILTER_VALIDATE_INT);
 
 
@@ -75,6 +78,11 @@ if ($service_title === '') {
     $errors[] = 'O campo TÍTULO é obrigatório.';
 }
 
+// Validação do status
+if (!in_array($service_status, ['Pendente', 'Encerrado'], true)) {
+    $errors[] = 'Status inválido.';
+}
+
 // Validação do ID para edição
 if ($is_update && (!$service_id || $service_id <= 0)) {
     $errors[] = 'Serviço inválido para edição.';
@@ -102,7 +110,9 @@ if ($errors) {
         $statement = mysqli_prepare(
             $conn,
             'UPDATE services
-             SET service_title = ?, service_description = ?
+             SET service_title = ?,
+                 service_description = ?,
+                 service_status = ?
              WHERE service_id = ?'
         );
 
@@ -110,9 +120,10 @@ if ($errors) {
 
             mysqli_stmt_bind_param(
                 $statement,
-                'ssi',
+                'sssi',
                 $service_title,
                 $service_description,
+                $service_status,
                 $service_id
             );
         }
@@ -122,23 +133,24 @@ if ($errors) {
         // INÍCIO: cadastro
         date_default_timezone_set('America/Sao_Paulo');
 
-        $service_date = date('Y-m-d H:i:s');
+        $service_date = date('Y-m-d');
 
         $statement = mysqli_prepare(
             $conn,
             'INSERT INTO services
-            (service_title, service_description, service_date)
-            VALUES (?, ?, ?)'
+            (service_title, service_description, service_date, service_status)
+            VALUES (?, ?, ?, ?)'
         );
 
         if ($statement) {
 
             mysqli_stmt_bind_param(
                 $statement,
-                'sss',
+                'ssss',
                 $service_title,
                 $service_description,
-                $service_date
+                $service_date,
+                $service_status
             );
         }
 

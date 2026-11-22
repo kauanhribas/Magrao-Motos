@@ -1,3 +1,4 @@
+
 <?php
     // O mesmo formulário atende ao cadastro e à edição no modal.
     $form_mode = $form_mode ?? 'create';
@@ -51,6 +52,27 @@
                                 style="height: 100px"><?php echo htmlspecialchars($form_service['service_description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
 
                             <label for="<?php echo $form_id; ?>_description">Descrição</label>
+                        </div>
+
+                        <div class="form-floating mt-3 mb-3">
+                            <select class="form-select"
+                                id="<?php echo $form_id; ?>_status"
+                                name="service_status"
+                                required>
+
+                                <option value="Pendente"
+                                    <?php echo ($form_service['service_status'] ?? 'Pendente') === 'Pendente' ? 'selected' : ''; ?>>
+                                    Pendente
+                                </option>
+
+                                <option value="Encerrado"
+                                    <?php echo ($form_service['service_status'] ?? '') === 'Encerrado' ? 'selected' : ''; ?>>
+                                    Encerrado
+                                </option>
+
+                            </select>
+
+                            <label for="<?php echo $form_id; ?>_status">Status</label>
                         </div>
 
                     </div>

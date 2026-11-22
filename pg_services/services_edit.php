@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="<?php echo $modal_id; ?>" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -21,6 +22,21 @@
                     <p>
                         <strong>Data:</strong>
                         <?php echo $service_date; ?>
+                    </p>
+
+                    <?php
+                        $service_status = $service['service_status'] ?? 'Pendente';
+
+                        $status_class = $service_status === 'Encerrado'
+                            ? 'bg-success'
+                            : 'bg-warning text-dark';
+                    ?>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="badge <?php echo $status_class; ?>">
+                            <?php echo htmlspecialchars($service_status, ENT_QUOTES, 'UTF-8'); ?>
+                        </span>
                     </p>
                 </div>
 

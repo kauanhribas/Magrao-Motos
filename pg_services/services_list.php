@@ -1,9 +1,3 @@
-<?php
-require_once root_path . "config/conectionDB.php";
-
-$select_actions = "SELECT * FROM actions ORDER BY action_datetime DESC";
-$result_actions = mysqli_query($conn, $select_actions);
-?>
 
 <?php
 require_once root_path . "config/conectionDB.php";
@@ -38,6 +32,14 @@ $result_services = mysqli_query($conn, $select_services);
 
                     // Define o identificador do modal
                     $modal_id = "service" . $service["service_id"];
+
+                    // Define o status do serviço
+                    $service_status = $service["service_status"] ?? 'Pendente';
+
+                    // Define a cor do status
+                    $status_class = $service_status === 'Encerrado'
+                        ? 'bg-success'
+                        : 'bg-warning text-dark';
                 ?>
 
                     <div class="row"
@@ -62,6 +64,12 @@ $result_services = mysqli_query($conn, $select_services);
                             <small>
                                 <?php echo $service_date; ?>
                             </small>
+
+                            <div style="margin-top: 8px">
+                                <span class="badge <?php echo $status_class; ?>">
+                                    <?php echo htmlspecialchars($service_status); ?>
+                                </span>
+                            </div>
 
                         </div>
                     </div>
