@@ -1,46 +1,50 @@
-<div style="padding-left: 8px; padding-right: 8px">
-<section class="section1">
-    <div class="s1-titulo">
-        <h1>SERVIÇOS</h1>
-    </div>
+<div style="padding-left: 4px; padding-right: 4px; background-color: white">
+    <section class="section1">
+        <div class="s2-titulo">
+            <h1>
+                <span class="linha linha-esquerda"></span>
+                <span class="texto-titulo">INFORMAÇÕES</span>
+                <span class="linha linha-direita"></span>
+            </h1>
+        </div>
 
-    <div class="container-fluid">
-        <div class="d-flex flex-column quadros">
+        <div class="container-fluid" style="margin-top: 8px">
+            <div class="d-flex flex-column quadros">
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 1</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 1</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 2</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 2</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 3</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 3</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 4</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 4</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 5</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 5</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 6</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 6</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 7</h1>
-            </div>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 7</h1>
+                </div>
 
-            <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
-                <h1>Serviço 8</h1>
+                <div class="row" data-bs-toggle="modal" data-bs-target="#servico1">
+                    <h1>Serviço 8</h1>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 </div>
 
 <!-- Modal do Serviço 1 -->

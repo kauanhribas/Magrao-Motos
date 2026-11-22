@@ -12,7 +12,7 @@
                                 if ($pagina == "services.php") {
                                     echo "
                                         <a href='" . root_url . "actions.php' class='btn'>
-                                            Movim.
+                                            AÇÕES
                                         </a>
                                     ";
                                 }
@@ -20,7 +20,7 @@
                                 else {
                                     echo "
                                         <a href='" . root_url . "#' class='btn'>
-                                            Serv.
+                                            SERVIÇOS
                                         </a>
                                     ";
                                 }
@@ -34,7 +34,7 @@
                                 if ($pagina != "index.php") {
                                     echo "
                                         <a href='" . root_url . "index.php' class='btn'>
-                                            Home
+                                            HOME
                                         </a>
                                     ";
                                 }
@@ -42,7 +42,7 @@
                                 else {
                                     echo "
                                         <a href='" . root_url . "actions.php' class='btn'>
-                                            Movim.
+                                            AÇÕES
                                         </a>
                                     ";
                                 }
@@ -56,7 +56,7 @@
                                 if ($pagina == "reports.php") {
                                     echo "
                                         <a href='" . root_url . "actions.php' class='btn'>
-                                            Movim.
+                                            AÇÕES
                                         </a>
                                     ";
                                 }
@@ -64,7 +64,7 @@
                                 else {
                                     echo "
                                         <a href='" . root_url . "reports.php' class='btn'>
-                                            Relat.
+                                            RELATÓRIOS
                                         </a>
                                     ";
                                 }

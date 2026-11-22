@@ -1,42 +1,48 @@
-<section class="section1">
-    <div class="s1-titulo">
-        <h1>RELATÓRIOS</h1>
-    </div>
+<div style="padding: 4px; background-color: white">
+    <section class="section1">
+        <div class="s2-titulo">
+            <h1>
+                <span class="linha linha-esquerda"></span>
+                <span class="texto-titulo">RELATÓRIOS</span>
+                <span class="linha linha-direita"></span>
+            </h1>
+        </div>
 
-    <div class="container-fluid">
-        <div class="d-flex flex-column quadros">
+        <div class="container-fluid" style="margin-top: 8px;">
+            <div class="d-flex flex-column quadros">
 
-            <div class="row">
-                <h1>Saldo: xxxxxx</h1>
-                <p>Total de entradas: xxxxxx
-                <br>Total de saidas: xxxxxx</p>
-            </div>
+                <div class="row">
+                    <h1>Saldo: xxxxxx</h1>
+                    <p>Total de entradas: xxxxxx
+                    <br>Total de saidas: xxxxxx</p>
+                </div>
 
-            <div class="row">
-                <h1>Entradas: xxxxxx</h1>
-                <p>Serviços: xxxxxx
-                <br>Peças: xxxxxx</p>
-            </div>
+                <div class="row">
+                    <h1>Entradas: xxxxxx</h1>
+                    <p>Serviços: xxxxxx
+                    <br>Peças: xxxxxx</p>
+                </div>
 
-            <div class="row">
-                <h1>Custos: xxxxxx</h1>
-                <p>Aluguel: xxxxxx
-                <br>Peças: xxxxxx</p>
+                <div class="row">
+                    <h1>Custos: xxxxxx</h1>
+                    <p>Aluguel: xxxxxx
+                    <br>Peças: xxxxxx</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Botão filtro -->
-    <div class="container-fluid fixed-bottom" style="padding-bottom: calc(10vh + 16px)">
-    <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-secondary"
-                data-bs-toggle="modal"
-                data-bs-target="#modalFiltro">
-            Filtrar
-        </button>
-    </div>
+        <!-- Botão filtro -->
+        <div class="container-fluid fixed-bottom" style="padding-bottom: calc(10vh + 16px)">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalFiltro">
+                    Filtrar
+                </button>
+            </div>
+        </div>
+    </section>
 </div>
-</section>
 
 <!-- Modal do filtrar -->
 <div class="modal fade" id="modalFiltro" tabindex="-1">
