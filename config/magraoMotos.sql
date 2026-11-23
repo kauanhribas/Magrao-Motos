@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 22/11/2026 às 18:16
+-- Tempo de geração: 23/11/2026 às 02:38
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -47,7 +47,8 @@ CREATE TABLE `services` (
   `service_id` int(11) NOT NULL,
   `service_title` varchar(100) NOT NULL,
   `service_description` varchar(500) NOT NULL,
-  `service_date` date NOT NULL
+  `service_date` date NOT NULL,
+  `service_status` varchar(20) NOT NULL DEFAULT 'Pendente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -74,13 +75,13 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT de tabela `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `action_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `services`
 --
 ALTER TABLE `services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
